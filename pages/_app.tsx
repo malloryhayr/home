@@ -4,11 +4,13 @@ import styled from 'styled-components';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<PageContainer>
-			<PageContent>
-				<Component {...pageProps} />
-			</PageContent>
-		</PageContainer>
+		<>
+			<PageContainer>
+				<PageContent>
+					<Component {...pageProps} />
+				</PageContent>
+			</PageContainer>
+		</>
 	);
 }
 
@@ -21,12 +23,13 @@ const PageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
 `;
 
 const PageContent = styled.div`
 	width: 37.5%;
-	height: 75%;
+	height: auto;
+
+	margin-top: 12.5em;
 
 	display: flex;
 `;
