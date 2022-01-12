@@ -1,10 +1,12 @@
 import type { NextPage } from 'next';
 
+import { Header } from 'components/text';
+
 const Home: NextPage = () => {
 	return (
-		<div>
-			<h1>Hello, World!</h1>
-		</div>
+		<>
+			<Header>Hey, I{`'`}m William 👋</Header>
+		</>
 	);
 };
 

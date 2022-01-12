@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+:root {
+	--bg: #010409;
+	--text: #ffffff;
+}
+
+*,
+body,
+html {
+	padding: 0;
+	margin: 0;
+}
+
+body,
+html,
+#__next {
+	background-color: var(--bg);
+	color: var(--text);
+	font-family: 'Inter', sans-serif;
+
+	height: 100%;
+	width: 100%;
+}
