@@ -1,0 +1,1 @@
+export const BIRTHDAY = 1110672000000;

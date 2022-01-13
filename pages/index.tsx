@@ -4,14 +4,15 @@ import type { NextPage } from 'next';
 import { Header, Paragraph } from 'components/text';
 
 import { isDate } from 'lib/time';
+import { BIRTHDAY } from 'lib/constants';
 
 const Home: NextPage = () => {
-	const [isBirthday, setIsBirthday] = useState(isDate('March 13 2005'));
+	const [isBirthday, setIsBirthday] = useState(isDate(BIRTHDAY));
 
 	const [intervalCheck, setIntervalCheck] = useState(0);
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setIsBirthday(isDate('March 13 2005'));
+			setIsBirthday(isDate(BIRTHDAY));
 
 			setIntervalCheck(intervalCheck + 1);
 		}, 100);
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
 				Hey, I{`'`}m William {isBirthday ? '🥳' : '👋'}
 			</Header>
 			<Paragraph>
-				I{`'`}m a <Age birthdate={new Date('March 13 2005').getTime()} />
+				I{`'`}m a <Age birthdate={new Date(BIRTHDAY).getTime()} />
 				-year-old aspiring software engineer.
 			</Paragraph>
 		</div>
