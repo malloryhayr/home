@@ -26,10 +26,10 @@ const PageContainer = styled.div`
 `;
 
 const PageContent = styled.div`
-	width: 37.5%;
+	width: 48rem;
 	height: auto;
 
-	margin-top: 12.5em;
+	margin-top: 12.5rem;
 
 	display: flex;
 `;

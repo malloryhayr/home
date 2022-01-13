@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { GitHub, Twitter } from 'react-feather';
 
 import { Header, Paragraph } from 'components/text';
 
@@ -20,8 +23,26 @@ const Home: NextPage = () => {
 		return () => clearInterval(interval);
 	}, [intervalCheck]);
 
+	const socials = [
+		{
+			link: 'https://github.com/iGalaxyYT',
+			icon: GitHub,
+		},
+		{
+			link: 'https://twitter.com/_iGalaxyYT',
+			icon: Twitter,
+		},
+	];
+
 	return (
 		<div>
+			{socials.map((social, i) => (
+				<Link href={social.link} passHref key={`social${i}`}>
+					<a target="_blank" style={{ paddingRight: '10px' }}>
+						<social.icon width={28} height={28} className={'socialIcon'} />
+					</a>
+				</Link>
+			))}
 			<Header>
 				Hey, I{`'`}m William {isBirthday ? '🥳' : '👋'}
 			</Header>
