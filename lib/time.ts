@@ -1,6 +1,12 @@
-export function isDate(date: number) {
-	const then = new Date(date);
-	const now = new Date();
+import dayjs from 'dayjs';
 
-	return now.getMonth() === then.getMonth() && now.getDate() === then.getDate();
+export function isDate(date: string) {
+	const then = dayjs(date);
+	const now = dayjs();
+
+	return now.month() === then.month() && now.date() === then.date();
+}
+
+export function isBirthday() {
+	return isDate('2005-03-13');
 }

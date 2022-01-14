@@ -1,1 +1,9 @@
-export const BIRTHDAY = 1110672000000;
+export enum TIMESPAN {
+	SECOND = 1e3,
+	MINUTE = 60e3,
+	HOUR = 3600e3,
+	DAY = 86400e3,
+	WEEK = 604800e3,
+	MONTH = 2629743e3,
+	YEAR = 31556926e3,
+}
