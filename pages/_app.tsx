@@ -29,7 +29,7 @@ const PageContent = styled.div`
 	width: 48rem;
 	height: auto;
 
-	margin-top: 12.5rem;
+	margin-top: 10rem;
 
 	display: flex;
 `;

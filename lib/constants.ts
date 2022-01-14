@@ -1,3 +1,9 @@
+export const BIRTHDAY = '2005-03-13';
+
+export const DISCORD_ID = '182292736790102017';
+
+export const GITHUB_USERNAME = 'iGalaxyYT';
+
 export enum TIMESPAN {
 	SECOND = 1e3,
 	MINUTE = 60e3,

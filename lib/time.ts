@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+import { BIRTHDAY } from 'lib/constants';
+
 export function isDate(date: string) {
 	const then = dayjs(date);
 	const now = dayjs();
@@ -8,5 +10,5 @@ export function isDate(date: string) {
 }
 
 export function isBirthday() {
-	return isDate('2005-03-13');
+	return isDate(BIRTHDAY);
 }

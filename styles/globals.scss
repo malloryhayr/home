@@ -26,20 +26,20 @@ html,
 
 .clickable {
 	transition: background 0.075s;
+	border-radius: 2px;
 
 	&:hover {
 		cursor: pointer;
 		background: rgba(255, 0, 255, 0.3);
-		border-radius: 2px;
 	}
 
 	&Link {
 		color: magenta;
+		border-radius: 2px;
 		padding: 4px;
 		margin-left: -4px;
 		&:hover {
 			cursor: pointer;
-			border-radius: 2px;
 			background: rgba(255, 0, 255, 0.3);
 		}
 	}

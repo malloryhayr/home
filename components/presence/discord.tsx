@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-import styled from 'styled-components';
 
 import { useLanyard } from 'use-lanyard';
 

@@ -2,13 +2,15 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { GitHub, MessageSquare, Twitter } from 'react-feather';
+import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
 import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
 
+import { DiscordPresence, GitHubPresence } from 'components/presence';
 import { Header, Paragraph, SubHeader } from 'components/text';
 
+import { BIRTHDAY, DISCORD_ID, GITHUB_USERNAME } from 'lib/constants';
 import { isDate } from 'lib/time';
-import { Discord } from 'components/presence/discord';
 
 const Home: NextPage = () => {
 	const socials = [
@@ -19,6 +21,10 @@ const Home: NextPage = () => {
 		{
 			link: 'https://twitter.com/_iGalaxyYT',
 			icon: Twitter,
+		},
+		{
+			link: 'https://keybase.io/igalaxy',
+			icon: Key,
 		},
 		{
 			link: 'https://link.igalaxy.dev/discord',
@@ -52,7 +58,7 @@ const Home: NextPage = () => {
 			</div>
 			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
 			<Paragraph>
-				I&lsquo;m a <Age birthdate={'2005-03-13'} />
+				I&lsquo;m a <Age birthdate={BIRTHDAY} />
 				-year-old aspiring software engineer & amateur game designer.
 			</Paragraph>
 			<Paragraph>
@@ -61,15 +67,13 @@ const Home: NextPage = () => {
 				Edition.
 			</Paragraph>
 			<br />
-			<div style={{ display: 'flex' }}>
-				<Discord id={'182292736790102017'} />
-			</div>
-			<br />
-			<SubHeader>What am I building?</SubHeader>
+			<SubHeader>What am I building? 🚀</SubHeader>
 			<Paragraph>
 				I&lsquo;m currently juggling a lot of projects, but here is a selection
 				of some of my favorite open source projects I&lsquo;ve worked on.
 			</Paragraph>
+			<br />
+			<GitHubPresence username={GITHUB_USERNAME} />
 		</div>
 	);
 };
