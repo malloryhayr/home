@@ -19,6 +19,18 @@ const GitHubRepoCard = ({
 
 	const toggle = () => setOpen(!open);
 
+	const emoji = `${repo?.description
+		.match(/\p{Extended_Pictographic}/gu)
+		?.flat()
+		.join('')}`;
+	const description = repo?.description.replace(
+		`${repo?.description
+			.match(/\p{Extended_Pictographic}/gu)
+			?.flat()
+			.join('')} `,
+		''
+	);
+
 	return (
 		<InteractiveContainer
 			style={{
@@ -31,7 +43,7 @@ const GitHubRepoCard = ({
 				overflow: 'hidden',
 			}}
 			onClick={toggle}
-			animate={{ height: open ? 'auto' : '21.5px' }}
+			animate={{ height: open ? 'auto' : '24px' }}
 		>
 			<div
 				style={{
@@ -40,8 +52,17 @@ const GitHubRepoCard = ({
 					justifyContent: 'space-between',
 				}}
 			>
-				<div style={{ display: 'flex', flexDirection: 'row' }}>
-					<Bold style={{ marginRight: '12px' }}>{repo?.repo}</Bold>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'row',
+						alignItems: 'center',
+					}}
+				>
+					<Bold style={{ marginRight: '12px' }}>
+						<span style={{ marginRight: '8px' }}>{emoji}</span>
+						{repo?.repo}
+					</Bold>
 					<GitHubRepoCardStat>⭐ {repo?.stars}</GitHubRepoCardStat>
 					<GitHubRepoCardStat>
 						<Share2 style={{ height: '12px' }} /> {repo?.forks}
@@ -65,7 +86,7 @@ const GitHubRepoCard = ({
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 					>
-						<p style={{ fontSize: '14px' }}>{repo?.description}</p>
+						<p style={{ fontSize: '14px' }}>{description}</p>
 					</motion.div>
 				)}
 			</AnimatePresence>
