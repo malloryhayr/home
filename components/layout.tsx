@@ -12,7 +12,6 @@ export const Container = styled.div`
 export const InteractiveContainer = motion(
 	styled.div`
 		border-radius: 4px;
-		padding: 16px;
 		background-color: rgba(255, 255, 255, 0.05);
 		border: 1px solid rgba(39, 41, 46, 255);
 		cursor: pointer;

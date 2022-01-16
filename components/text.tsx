@@ -28,7 +28,6 @@ export const Paragraph = (
 		style={{
 			fontSize: '18px',
 			color: 'rgba(255, 255, 255, 0.8)',
-			marginTop: '18px',
 			lineHeight: '2rem',
 			...props.style,
 		}}

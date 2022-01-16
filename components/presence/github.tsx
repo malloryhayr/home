@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
-import { ChevronRight, Share2 } from 'react-feather';
+import { ChevronRight, ExternalLink, Share2 } from 'react-feather';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { InteractiveContainer } from 'components/layout';
 import { Bold, Paragraph } from 'components/text';
 
-import { useGitHubPinnedRepos, GitHubPinnedRepo } from 'lib/hooks';
+import { GitHubPinnedRepo } from 'lib/hooks';
 
 const GitHubRepoCard = ({
 	repo,
@@ -43,13 +44,16 @@ const GitHubRepoCard = ({
 				overflow: 'hidden',
 			}}
 			onClick={toggle}
-			animate={{ height: open ? 'auto' : '24px' }}
+			animate={{ height: open ? 'auto' : '58px' }}
 		>
 			<div
 				style={{
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',
+					padding: '16px',
+					borderBottom: '1px solid rgba(39, 41, 46, 255)',
+					paddingBottom: '18px',
 				}}
 			>
 				<div
@@ -86,7 +90,41 @@ const GitHubRepoCard = ({
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 					>
-						<p style={{ fontSize: '14px' }}>{description}</p>
+						<Paragraph
+							style={{
+								padding: '16px',
+								color: 'white',
+							}}
+						>
+							{description}
+						</Paragraph>
+						<div
+							style={{
+								padding: '16px',
+								marginTop: '-22px',
+								display: 'flex',
+								justifyContent: 'start',
+								alignItems: 'center',
+							}}
+						>
+							<Link href={repo?.url || ''} passHref>
+								<a
+									style={{
+										backgroundColor: '#23272b',
+										color: 'white',
+										fontSize: '16px',
+										padding: '12px',
+										borderRadius: '4px',
+									}}
+									target="_blank"
+								>
+									View Project{' '}
+									<ExternalLink
+										style={{ height: '18px', marginBottom: '-3px' }}
+									/>
+								</a>
+							</Link>
+						</div>
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -94,9 +132,9 @@ const GitHubRepoCard = ({
 	);
 };
 
-export const GitHub = ({ username }: { username: string }) => {
-	const { data: github } = useGitHubPinnedRepos(username);
-
+export const GitHub = (props: {
+	pinnedRepos: (GitHubPinnedRepo & { url: string })[];
+}) => {
 	return (
 		<div
 			style={{
@@ -105,7 +143,7 @@ export const GitHub = ({ username }: { username: string }) => {
 				flexWrap: 'wrap',
 			}}
 		>
-			{github?.map(repo => (
+			{props.pinnedRepos?.map(repo => (
 				<GitHubRepoCard repo={repo} key={repo.repo} />
 			))}
 		</div>

@@ -1,18 +1,22 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
 import dayjs from 'dayjs';
-import { motion } from 'framer-motion';
 
 import { DiscordPresence, GitHubPresence } from 'components/presence';
 import { Header, Paragraph, SubHeader } from 'components/text';
 
 import { BIRTHDAY, DISCORD_ID, GITHUB_USERNAME } from 'lib/constants';
 import { isDate } from 'lib/time';
+import { GitHubPinnedRepo, useGitHubPinnedRepos } from 'lib/hooks';
 
-const Home: NextPage = () => {
+interface Props {
+	pinnedRepos: (GitHubPinnedRepo & { url: string })[];
+}
+
+export default function Home(props: Props) {
 	const socials = [
 		{
 			link: 'https://github.com/iGalaxyYT',
@@ -25,10 +29,6 @@ const Home: NextPage = () => {
 		{
 			link: 'https://keybase.io/igalaxy',
 			icon: Key,
-		},
-		{
-			link: 'https://link.igalaxy.dev/discord',
-			icon: MessageSquare,
 		},
 	];
 
@@ -45,6 +45,9 @@ const Home: NextPage = () => {
 		return () => clearInterval(interval);
 	}, [intervalCheck]);
 
+	const { data: github = props.pinnedRepos } =
+		useGitHubPinnedRepos(GITHUB_USERNAME);
+
 	return (
 		<div>
 			<div style={{ marginBottom: '18px' }}>
@@ -57,28 +60,26 @@ const Home: NextPage = () => {
 				))}
 			</div>
 			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
-			<Paragraph>
+			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m a <Age birthdate={BIRTHDAY} />
 				-year-old aspiring software engineer & amateur game designer.
 			</Paragraph>
-			<Paragraph>
+			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m pursuing full-stack web development using modern technologies
 				and I&lsquo;m creating multiplayer experiences for Minecraft: Java
 				Edition.
 			</Paragraph>
 			<br />
 			<SubHeader>What am I building? 🚀</SubHeader>
-			<Paragraph>
+			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m currently juggling a lot of projects, but here is a selection
 				of some of my favorite open source projects I&lsquo;ve worked on.
 			</Paragraph>
 			<br />
-			<GitHubPresence username={GITHUB_USERNAME} />
+			<GitHubPresence pinnedRepos={github!} />
 		</div>
 	);
-};
-
-export default Home;
+}
 
 const Age = ({ birthdate }: { birthdate: string }) => {
 	const [clicked, setClicked] = useState(false);
@@ -101,4 +102,19 @@ const Age = ({ birthdate }: { birthdate: string }) => {
 			{clicked ? `~${year.toFixed(8)}` : Math.floor(year)}
 		</span>
 	);
+};
+
+export const getStaticProps: GetStaticProps<Props> = async function () {
+	const pinnedRepos = await fetch(
+		`https://gh-pinned-repos.egoist.sh/?username=${GITHUB_USERNAME}`
+	).then(async response => response.json() as Promise<GitHubPinnedRepo[]>);
+
+	return {
+		props: {
+			pinnedRepos: pinnedRepos.map(repo => ({
+				...repo,
+				url: `https://github.com/${repo.owner}/${repo.repo}`,
+			})),
+		},
+	};
 };
