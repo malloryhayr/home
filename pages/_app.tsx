@@ -41,4 +41,7 @@ const PageContent = styled.div`
 	@media only screen and (max-width: 930px) {
 		width: 100%;
 	}
+	@media only screen and (max-width: 670px) {
+		margin-top: 4rem;
+	}
 `;
