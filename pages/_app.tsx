@@ -23,6 +23,11 @@ const PageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	@media only screen and (max-width: 930px) {
+		width: 75%;
+		margin-left: 12.5%;
+	}
 `;
 
 const PageContent = styled.div`
@@ -32,4 +37,8 @@ const PageContent = styled.div`
 	margin-top: 10rem;
 
 	display: flex;
+
+	@media only screen and (max-width: 930px) {
+		width: 100%;
+	}
 `;

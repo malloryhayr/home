@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
 
 import { ChevronRight, ExternalLink, Share2 } from 'react-feather';
@@ -9,13 +8,15 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { LinkButton, InteractiveContainer } from 'components/layout';
 import { Bold, Paragraph } from 'components/text';
 
-import { GitHubPinnedRepo } from 'lib/hooks';
+import { GitHubPinnedRepo, useWindowDimensions } from 'lib/hooks';
 
 const GitHubRepoCard = ({
 	repo,
 }: {
 	repo?: GitHubPinnedRepo & { url: string };
 }) => {
+	const { width } = useWindowDimensions();
+
 	const [open, setOpen] = useState(false);
 
 	const toggle = () => setOpen(!open);
@@ -38,7 +39,7 @@ const GitHubRepoCard = ({
 				height: 'auto',
 				margin: '10px',
 				flexGrow: '1',
-				width: '33.3%',
+				width: width > 760 ? '33.3%' : '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				overflow: 'hidden',
@@ -89,6 +90,12 @@ const GitHubRepoCard = ({
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'space-between',
+							height: '100%',
+						}}
 					>
 						<Paragraph
 							style={{
@@ -101,7 +108,6 @@ const GitHubRepoCard = ({
 						<div
 							style={{
 								padding: '16px',
-								marginTop: '-22px',
 								display: 'flex',
 								justifyContent: 'start',
 								alignItems: 'center',
