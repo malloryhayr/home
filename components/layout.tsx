@@ -57,7 +57,10 @@ const LinkButtonLink = styled.a`
 
 	position: relative;
 
-	&:hover::before {
+	&::before {
+		opacity: 0;
+		transition: opacity 0.1s;
+
 		background-color: white;
 		position: absolute;
 		width: 100%;
@@ -68,8 +71,11 @@ const LinkButtonLink = styled.a`
 		padding-bottom: 24px;
 		border-radius: 6px;
 		border: 3px solid white;
-		opacity: 0.1;
 
 		z-index: -1;
+	}
+
+	&:hover::before {
+		opacity: 0.1;
 	}
 `;
