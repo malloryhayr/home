@@ -6,7 +6,7 @@ import { ChevronRight, ExternalLink, Share2 } from 'react-feather';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { InteractiveContainer } from 'components/layout';
+import { LinkButton, InteractiveContainer } from 'components/layout';
 import { Bold, Paragraph } from 'components/text';
 
 import { GitHubPinnedRepo } from 'lib/hooks';
@@ -107,23 +107,15 @@ const GitHubRepoCard = ({
 								alignItems: 'center',
 							}}
 						>
-							<Link href={repo?.url || ''} passHref>
-								<a
-									style={{
-										backgroundColor: '#23272b',
-										color: 'white',
-										fontSize: '16px',
-										padding: '12px',
-										borderRadius: '4px',
-									}}
-									target="_blank"
-								>
-									View Project{' '}
-									<ExternalLink
-										style={{ height: '18px', marginBottom: '-3px' }}
-									/>
-								</a>
-							</Link>
+							<LinkButton
+								href={repo?.url || ''}
+								style={{ marginTop: '16px', marginBottom: '14px' }}
+							>
+								View Project{' '}
+								<ExternalLink
+									style={{ height: '18px', marginBottom: '-3px' }}
+								/>
+							</LinkButton>
 						</div>
 					</motion.div>
 				)}

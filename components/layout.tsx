@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Link, { LinkProps } from 'next/link';
+
 import { motion } from 'framer-motion';
 
 export const Container = styled.div`
@@ -22,3 +24,52 @@ export const InteractiveContainer = motion(
 	`,
 	{ forwardMotionProps: true }
 );
+
+export type LinkButtonProps = React.PropsWithChildren<LinkProps> & {
+	style?: any;
+};
+export const LinkButton = (props: LinkButtonProps) => {
+	return (
+		<>
+			<LinkButtonContainer style={props.style}>
+				<Link href={props.href} passHref>
+					<LinkButtonLink target="_blank">{props.children}</LinkButtonLink>
+				</Link>
+			</LinkButtonContainer>
+		</>
+	);
+};
+
+const LinkButtonContainer = styled.div`
+	position: relative;
+	z-index: 1;
+
+	padding: 0;
+	margin: 0;
+`;
+
+const LinkButtonLink = styled.a`
+	background-color: #23272b;
+	color: white;
+	font-size: 16px;
+	padding: 12px;
+	border-radius: 4px;
+
+	position: relative;
+
+	&:hover::before {
+		background-color: white;
+		position: absolute;
+		width: 100%;
+		display: block;
+		content: '.';
+		margin-left: -3px;
+		margin-top: -3px;
+		padding-bottom: 24px;
+		border-radius: 6px;
+		border: 3px solid white;
+		opacity: 0.1;
+
+		z-index: -1;
+	}
+`;
