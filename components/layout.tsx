@@ -62,6 +62,7 @@ const LinkButtonLink = styled.a`
 		transition: opacity 0.1s;
 
 		background-color: white;
+		filter: blur(2px);
 		position: absolute;
 		width: 100%;
 		display: block;
