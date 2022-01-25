@@ -77,6 +77,13 @@ export default function Home(props: Props) {
 			</Paragraph>
 			<br />
 			<GitHubPresence pinnedRepos={github!} />
+			<br />
+			<SubHeader>What am I using? 🛠️</SubHeader>
+			<Paragraph style={{ marginTop: '18px' }}>
+				I&lsquo;m always trying to learn something new, and while I&lsquo;ve
+				traditionally focused on high-level web development, nowadays I&lsquo;m
+				exploring low-level languages such as Rust and Go.
+			</Paragraph>
 		</div>
 	);
 }
