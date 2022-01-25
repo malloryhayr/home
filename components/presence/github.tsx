@@ -39,13 +39,13 @@ const GitHubRepoCard = ({
 				height: 'auto',
 				margin: '10px',
 				flexGrow: '1',
-				width: width > 760 ? '33.3%' : '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				overflow: 'hidden',
 			}}
 			onClick={toggle}
 			animate={{ height: open ? 'auto' : '58px' }}
+			className={'GitHubPresenceCard'}
 		>
 			<div
 				style={{
