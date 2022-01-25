@@ -67,11 +67,11 @@ const LinkButtonLink = styled.a`
 		width: 100%;
 		display: block;
 		content: '.';
-		margin-left: -3px;
-		margin-top: -3px;
+		margin-left: -2px;
+		margin-top: -2px;
 		padding-bottom: 24px;
-		border-radius: 6px;
-		border: 3px solid white;
+		border-radius: 4px;
+		border: 2px solid white;
 
 		z-index: -1;
 	}
