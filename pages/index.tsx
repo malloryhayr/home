@@ -5,7 +5,8 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
 import dayjs from 'dayjs';
 
-import { DiscordPresence, GitHubPresence } from 'components/presence';
+import { DiscordPresence } from 'components/presence';
+import { GitHubSection, ToolsSection } from 'components/section';
 import { Header, Paragraph, SubHeader } from 'components/text';
 
 import { BIRTHDAY, DISCORD_ID, GITHUB_USERNAME } from 'lib/constants';
@@ -76,7 +77,7 @@ export default function Home(props: Props) {
 				of some of my favorite open source projects I&lsquo;ve worked on.
 			</Paragraph>
 			<br />
-			<GitHubPresence pinnedRepos={github!} />
+			<GitHubSection pinnedRepos={github!} />
 			<br />
 			<SubHeader>What am I using? 🛠️</SubHeader>
 			<Paragraph style={{ marginTop: '18px' }}>
@@ -84,6 +85,8 @@ export default function Home(props: Props) {
 				traditionally focused on high-level web development, nowadays I&lsquo;m
 				exploring low-level languages such as Rust and Go.
 			</Paragraph>
+			<br />
+			<ToolsSection />
 		</div>
 	);
 }
