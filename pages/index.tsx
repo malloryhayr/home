@@ -83,7 +83,7 @@ export default function Home(props: Props) {
 			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m always trying to learn something new, and while I&lsquo;ve
 				traditionally focused on high-level web development, nowadays I&lsquo;m
-				exploring low-level languages such as Rust and Go.
+				exploring low-level languages such as Go.
 			</Paragraph>
 			<br />
 			<ToolsSection />
