@@ -1,7 +1,6 @@
 import {
 	Cloudflare,
 	Git,
-	Githubactions,
 	Go,
 	Gradle,
 	Icon,
@@ -12,15 +11,19 @@ import {
 	Postgresql,
 	ReactJs,
 	Redis,
-	Rust,
 	Styledcomponents,
 	Supabase,
 	Typescript,
 	Vercel,
 	Yarn,
 } from '@icons-pack/react-simple-icons';
+import { useWakaTimeStats, WakaTimeLanguage } from 'lib/hooks';
+import { useLanguageFromWakaTimeStats } from 'lib/hooks/wakatime';
+import ReactTooltip from 'react-tooltip';
 
 export const Tools = () => {
+	const { data: wakatime, error } = useWakaTimeStats('iGalaxy');
+
 	return (
 		<div
 			style={{
@@ -29,10 +32,38 @@ export const Tools = () => {
 				flexWrap: 'wrap',
 			}}
 		>
-			<ToolListItem Logo={Typescript} text={'TypeScript'} />
-			<ToolListItem Logo={Kotlin} text={'Kotlin'} />
-			<ToolListItem Logo={Java} text={'Java'} />
-			<ToolListItem Logo={Go} text={'Golang'} />
+			<ToolListItem
+				Logo={Typescript}
+				text={'TypeScript'}
+				lang={useLanguageFromWakaTimeStats(
+					wakatime || { data: { languages: [] } },
+					'TypeScript'
+				)}
+			/>
+			<ToolListItem
+				Logo={Kotlin}
+				text={'Kotlin'}
+				lang={useLanguageFromWakaTimeStats(
+					wakatime || { data: { languages: [] } },
+					'Kotlin'
+				)}
+			/>
+			<ToolListItem
+				Logo={Java}
+				text={'Java'}
+				lang={useLanguageFromWakaTimeStats(
+					wakatime || { data: { languages: [] } },
+					'Java'
+				)}
+			/>
+			<ToolListItem
+				Logo={Go}
+				text={'Golang'}
+				lang={useLanguageFromWakaTimeStats(
+					wakatime || { data: { languages: [] } },
+					'Go'
+				)}
+			/>
 			<ToolListItem Logo={Postgresql} text={'Postgres'} />
 			<ToolListItem Logo={Redis} text={'Redis'} />
 			<ToolListItem Logo={Supabase} text={'Supabase'} />
@@ -49,25 +80,49 @@ export const Tools = () => {
 	);
 };
 
-const ToolListItem = ({ Logo, text }: { Logo: Icon; text: string }) => {
+const ToolListItem = ({
+	Logo,
+	text,
+	lang,
+}: {
+	Logo: Icon;
+	text: string;
+	lang?: WakaTimeLanguage;
+}) => {
 	return (
-		<div
-			style={{
-				margin: '10px',
-			}}
-			className={'ToolListItem'}
-		>
-			<p
+		<>
+			{lang ? (
+				<ReactTooltip backgroundColor="#0d1117" border borderColor="#27292e" />
+			) : (
+				<></>
+			)}
+			<div
 				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					alignItems: 'center',
-					fontSize: '16px',
+					margin: '10px',
 				}}
+				className={'ToolListItem'}
+				data-tip={
+					lang ? `${lang.hours}h ${lang.minutes}m past week` : undefined
+				}
 			>
-				<Logo color={'#ffffff'} size={20} style={{ marginRight: '8px' }} />{' '}
-				{text}
-			</p>
-		</div>
+				<p
+					style={{
+						display: 'flex',
+						flexDirection: 'row',
+						alignItems: 'center',
+					}}
+				>
+					<Logo color={'#ffffff'} size={20} style={{ marginRight: '8px' }} />{' '}
+					<span
+						style={{
+							fontSize: '16px',
+							borderBottom: lang ? '1px dotted white' : undefined,
+						}}
+					>
+						{text}
+					</span>
+				</p>
+			</div>
+		</>
 	);
 };

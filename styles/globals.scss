@@ -63,6 +63,10 @@ span {
 	font-size: 18px;
 }
 
+/**
+ * tried to use a hook for width and updating the styles that way, but it wasn't working on mobile for some reason
+ */
+
 .GitHubPresenceCard {
 	width: 33.3%;
 }
