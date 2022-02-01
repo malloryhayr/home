@@ -28,6 +28,8 @@ html,
 	transition: background 0.075s;
 	border-radius: 2px;
 
+	border-bottom: 1px dotted rgba(255, 255, 255, 0.8);
+
 	&:hover {
 		cursor: pointer;
 		background: rgba(255, 0, 255, 0.3);
