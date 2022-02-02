@@ -35,6 +35,7 @@ const PageContent = styled.div`
 	height: auto;
 
 	margin-top: 10rem;
+	padding-bottom: 10rem;
 
 	display: flex;
 
@@ -43,5 +44,6 @@ const PageContent = styled.div`
 	}
 	@media only screen and (max-width: 670px) {
 		margin-top: 4rem;
+		padding-bottom: 4rem;
 	}
 `;
