@@ -3,7 +3,6 @@ import {
 	Git,
 	Go,
 	Gradle,
-	Graphql,
 	Icon,
 	Java,
 	Kotlin,
@@ -11,6 +10,7 @@ import {
 	Nodedotjs,
 	Postgresql,
 	ReactJs,
+	Redis,
 	Styledcomponents,
 	Supabase,
 	Typescript,
@@ -64,7 +64,7 @@ export const Tools = () => {
 					'Go'
 				)}
 			/>
-			<ToolListItem Logo={Graphql} text={'GraphQL'} />
+			<ToolListItem Logo={Redis} text={'Redis'} />
 			<ToolListItem Logo={Postgresql} text={'Postgres'} />
 			<ToolListItem Logo={Supabase} text={'Supabase'} />
 			<ToolListItem Logo={Vercel} text={'Vercel'} />
