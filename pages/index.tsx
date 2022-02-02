@@ -50,7 +50,7 @@ export default function Home(props: Props) {
 		useGitHubPinnedRepos(GITHUB_USERNAME);
 
 	return (
-		<div style={{ paddingBottom: '160px' }}>
+		<div>
 			<div style={{ marginBottom: '18px' }}>
 				{socials.map((social, i) => (
 					<Link href={social.link} passHref key={`social${i}`}>
