@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				</PageContent>
 				<Footer>
 					<SubHeader style={{ marginBottom: '4px' }}>William Hayr</SubHeader>
-					<p>© 2022</p>
+					<p>© {new Date().getFullYear()}</p>
 				</Footer>
 			</PageContainer>
 		</>
