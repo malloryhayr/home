@@ -67,6 +67,12 @@ export default class MyDocument extends Document {
 					<meta name="author" content="William Hayr" />
 
 					<meta name="theme-color" content="#010409" />
+
+					<link
+						rel="icon"
+						type="image/png"
+						href="https://cdn.igalaxy.dev/iGalaxy_new_large.png"
+					/>
 				</Head>
 				<body>
 					<Main />
