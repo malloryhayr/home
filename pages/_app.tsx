@@ -1,13 +1,17 @@
 import '../styles/globals.scss';
-
-import type { AppProps } from 'next/app';
 import styled from 'styled-components';
+
+import Head from 'next/head';
+import type { AppProps } from 'next/app';
 
 import { SubHeader } from 'components/text';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
+			<Head>
+				<title>William Hayr</title>
+			</Head>
 			<PageContainer>
 				<PageContent>
 					<Component {...pageProps} />
