@@ -19,6 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<Footer>
 					<SubHeader style={{ marginBottom: '4px' }}>William Hayr</SubHeader>
 					<p>© {new Date().getFullYear()}</p>
+					<br />
+					<p
+						style={{
+							fontSize: '8px',
+							float: 'right',
+							color: 'rgba(255, 255, 255, 0.25)',
+						}}
+					>
+						Not affiliated with or endorsed by Mojang Studios or Microsoft
+					</p>
 				</Footer>
 			</PageContainer>
 		</>
