@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import useSWR, { SWRResponse } from 'swr';
+import useSWR from 'swr';
 
 export interface WakaTimeLanguage {
 	decimal: string;
@@ -12,7 +11,6 @@ export interface WakaTimeLanguage {
 	total_seconds: number;
 }
 
-/** too lazy to fully type... */
 export type WakaTimeResponse = { data: { languages: WakaTimeLanguage[] } };
 
 export function useWakaTimeStats(user: string) {
