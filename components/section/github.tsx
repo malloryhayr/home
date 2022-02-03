@@ -37,7 +37,7 @@ const GitHubRepoCard = ({
 		<InteractiveContainer
 			style={{
 				height: 'auto',
-				margin: '10px',
+				margin: '7.5px',
 				flexGrow: '1',
 				display: 'flex',
 				flexDirection: 'column',

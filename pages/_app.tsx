@@ -1,6 +1,8 @@
 import '../styles/globals.scss';
+
 import type { AppProps } from 'next/app';
 import styled from 'styled-components';
+
 import { SubHeader } from 'components/text';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -59,6 +61,7 @@ const Footer = styled.div`
 	width: 48rem;
 
 	padding-left: 2.5rem;
+	padding-right: 2.5rem;
 	padding-top: 3rem;
 	padding-bottom: 5rem;
 
