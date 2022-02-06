@@ -59,6 +59,7 @@ const PageContent = styled.div`
 	padding-bottom: 6rem;
 
 	display: flex;
+	flex-direction: column;
 
 	@media only screen and (max-width: 930px) {
 		width: 100%;
