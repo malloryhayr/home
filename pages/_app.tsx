@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<br />
 					<p
 						style={{
-							fontSize: '8px',
+							fontSize: '10px',
 							float: 'right',
 							color: 'rgba(255, 255, 255, 0.25)',
 						}}
