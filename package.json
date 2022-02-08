@@ -18,6 +18,8 @@
     "react-feather": "^2.0.9",
     "react-syntax-highlighter": "^15.4.5",
     "react-tooltip": "^4.2.21",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
     "sass": "^1.47.0",
     "styled-components": "^5.3.3",
     "swr": "^1.1.2",

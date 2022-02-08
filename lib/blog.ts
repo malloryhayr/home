@@ -2,20 +2,22 @@ import fs from 'fs';
 import path from 'path';
 
 import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 const POSTS_DIRECTORY = path.join(process.cwd(), 'posts');
 
-interface BlogPostPath {
+export interface BlogPostPath {
 	year: string;
 	month: string;
 	slug: string;
 }
 
-interface BlogPostMeta {
+export interface BlogPostMeta {
 	title: string;
 }
 
-interface BlogPostData {
+export interface BlogPostData {
 	path: BlogPostPath;
 	meta: BlogPostMeta;
 	content: string;
@@ -57,4 +59,9 @@ export function getPost(post: BlogPostPath): BlogPostData {
 export function getAllPosts() {
 	const paths = getPostPaths();
 	return paths.map(x => getPost(x));
+}
+
+export async function processMarkdown(markdown: string) {
+	const result = await remark().use(html).process(markdown);
+	return result.toString();
 }
