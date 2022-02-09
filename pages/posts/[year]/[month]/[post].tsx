@@ -21,6 +21,8 @@ export default function BlogPost({
 }>) {
 	return (
 		<>
+			{meta.title}
+			{meta.date}
 			<BlogPostBody>
 				<div dangerouslySetInnerHTML={{ __html: processedContent }}></div>
 			</BlogPostBody>

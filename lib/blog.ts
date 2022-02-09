@@ -15,6 +15,7 @@ export interface BlogPostPath {
 
 export interface BlogPostMeta {
 	title: string;
+	date: string;
 }
 
 export interface BlogPostData {
