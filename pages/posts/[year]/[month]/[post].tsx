@@ -21,7 +21,9 @@ export default function BlogPost({
 }>) {
 	return (
 		<>
-			<BlogPostBody dangerouslySetInnerHTML={{ __html: processedContent }} />
+			<BlogPostBody>
+				<div dangerouslySetInnerHTML={{ __html: processedContent }}></div>
+			</BlogPostBody>
 		</>
 	);
 }
