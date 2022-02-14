@@ -18,7 +18,6 @@ export default function Post({
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-	console.log(params);
 	if (params && params.year && params.month && params.post) {
 		return {
 			props: {
