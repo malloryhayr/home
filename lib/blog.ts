@@ -9,6 +9,14 @@ export interface BlogPostPath {
 	post: string;
 }
 
+export interface BlogPostFile {
+	default: any;
+	meta: {
+		title: string;
+		date: string;
+	};
+}
+
 export function getPostPaths(): BlogPostPath[] {
 	return fs
 		.readdirSync(POSTS_DIRECTORY)
