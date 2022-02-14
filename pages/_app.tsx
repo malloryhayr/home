@@ -6,7 +6,7 @@ import type { AppProps } from 'next/app';
 
 import { SubHeader } from 'components/text';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
@@ -34,8 +34,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 		</>
 	);
 }
-
-export default MyApp;
 
 const PageContainer = styled.div`
 	width: 100%;
