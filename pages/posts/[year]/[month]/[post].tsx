@@ -1,10 +1,13 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import Link, { LinkProps } from 'next/link';
 import { MDXProvider } from '@mdx-js/react';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { BlogPostFile, getPostPaths } from 'lib/blog';
+import styled from 'styled-components';
+import { ReactNode } from 'react';
 
 export default function Post({
 	year,
@@ -15,7 +18,7 @@ export default function Post({
 	const { default: PostContent, meta } = postFile;
 
 	return (
-		<MDXProvider>
+		<MDXProvider components={{}}>
 			<BlogDate rawDate={meta.date} />
 			<h1
 				style={{

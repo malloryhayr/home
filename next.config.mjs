@@ -1,5 +1,7 @@
+import remarkGfm from 'remark-gfm';
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
 	reactStrictMode: true,
 	experimental: { esmExternals: true },
 	pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
@@ -14,6 +16,8 @@ module.exports = {
 					/** @type {import('@mdx-js/loader').Options} */
 					options: {
 						/* jsxImportSource: …, otherOptions… */
+						remarkPlugins: [remarkGfm],
+						rehypePlugins: [],
 					},
 				},
 			],
@@ -22,3 +26,5 @@ module.exports = {
 		return config;
 	},
 };
+
+export default config;
