@@ -83,3 +83,19 @@ span {
 		width: 100%;
 	}
 }
+
+.__react_component_tooltip {
+	&.show {
+		opacity: 1 !important;
+	}
+
+	&.activityTooltip {
+		padding: 18px !important;
+		display: flex !important;
+		width: 300px;
+	}
+}
+
+.activityLargeImage {
+	border-radius: 4px;
+}
