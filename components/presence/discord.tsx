@@ -4,22 +4,24 @@ import Image from 'next/image';
 
 import { Activity, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
-import { Music, X } from 'react-feather';
+import { Music, Smartphone, X } from 'react-feather';
 
-import { useLastfmTrack } from 'lib/hooks';
+import { useLastfmTrack, useWindowDimensions } from 'lib/hooks';
 
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
-// const discordStatusName = (status: DiscordStatus): string =>
-// 	({
-// 		online: 'Online',
-// 		dnd: 'Do Not Disturb',
-// 		idle: 'Idle',
-// 		offline: 'Offline',
-// 	}[status]);
+const discordStatusName = (status: DiscordStatus): string =>
+	({
+		online: 'Online',
+		dnd: 'Do Not Disturb',
+		idle: 'Idle',
+		offline: 'Offline',
+	}[status]);
 
 export const Discord = ({ id }: { id: string }) => {
 	const lanyard = useLanyardWs(id);
+
+	const { width, height } = useWindowDimensions();
 
 	if (lanyard) {
 		return (
@@ -30,15 +32,19 @@ export const Discord = ({ id }: { id: string }) => {
 					desktop={lanyard.active_on_discord_desktop}
 				/>
 				<PresenceStatusText>
-					{lanyard.activities.map((activity, i) => (
-						<Activity
-							activity={activity}
-							key={activity.id}
-							i={i}
-							length={lanyard.activities.length}
-							spotify={lanyard.spotify}
-						/>
-					))}
+					{width > 930 ? (
+						lanyard.activities.map((activity, i) => (
+							<Activity
+								activity={activity}
+								key={activity.id}
+								i={i}
+								length={lanyard.activities.length}
+								spotify={lanyard.spotify}
+							/>
+						))
+					) : (
+						<></>
+					)}
 				</PresenceStatusText>
 			</PresenceStatusLine>
 		);
@@ -374,15 +380,26 @@ const PresenceStatusCircle = ({
 		offline: 'rgba(255, 255, 255, 0.2)',
 	};
 
-	return (
-		<div
-			style={{
-				width: '16px',
-				height: '16px',
-				borderRadius: '100%',
-				backgroundColor: COLORS[status],
-				marginRight: '16px',
-			}}
-		/>
-	);
+	if (mobile && !desktop) {
+		return (
+			<Smartphone
+				width={24}
+				height={24}
+				color={COLORS[status]}
+				style={{ marginRight: '16px' }}
+			/>
+		);
+	} else {
+		return (
+			<div
+				style={{
+					width: '16px',
+					height: '16px',
+					borderRadius: '100%',
+					backgroundColor: COLORS[status],
+					marginRight: '16px',
+				}}
+			/>
+		);
+	}
 };
