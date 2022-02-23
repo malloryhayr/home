@@ -74,6 +74,9 @@ const Activity = ({
 
 	const NAME_OVERRIDE: { [key: string]: string } = {};
 
+	const TRANSPARENT_IMAGE =
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 	/**
 	 * Activity Types
 	 *
@@ -116,38 +119,44 @@ const Activity = ({
 								<div style={{ position: 'relative' }}>
 									<Image
 										src={
-											activity.assets.large_image.startsWith('mp:external')
-												? getExternalAsset(activity.assets.large_image)
-												: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+											activity.assets.large_image
+												? activity.assets.large_image.startsWith('mp:external')
+													? getExternalAsset(activity.assets.large_image)
+													: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+												: TRANSPARENT_IMAGE
 										}
 										width={'80px'}
 										height={'80px'}
 										alt={activity.name}
 										className={'activityLargeImage'}
 									/>
-									<div
-										style={{
-											position: 'absolute',
-											bottom: '-7.5px',
-											right: '-7.5px',
-											borderRadius: '9999px',
-											border: '4px solid #0d1117',
-											width: '25px',
-											height: '25px',
-										}}
-									>
-										<Image
-											src={
-												activity.assets.small_image.startsWith('mp:external')
-													? getExternalAsset(activity.assets.small_image)
-													: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}`
-											}
-											width={'25px'}
-											height={'25px'}
-											alt={activity.name}
-											className={'activitySmallImage'}
-										/>
-									</div>
+									{activity.assets.small_image ? (
+										<div
+											style={{
+												position: 'absolute',
+												bottom: '-7.5px',
+												right: '-7.5px',
+												borderRadius: '9999px',
+												border: '4px solid #0d1117',
+												width: '25px',
+												height: '25px',
+											}}
+										>
+											<Image
+												src={
+													activity.assets.small_image.startsWith('mp:external')
+														? getExternalAsset(activity.assets.small_image)
+														: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}`
+												}
+												width={'25px'}
+												height={'25px'}
+												alt={activity.name}
+												className={'activitySmallImage'}
+											/>
+										</div>
+									) : (
+										<></>
+									)}
 								</div>
 							) : (
 								<></>
