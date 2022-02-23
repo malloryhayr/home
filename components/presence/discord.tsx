@@ -4,18 +4,19 @@ import Image from 'next/image';
 
 import { Activity, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
+import { Music, X } from 'react-feather';
 
-import { useLastfmTrack } from 'lib/hooks/lastfm';
+import { useLastfmTrack } from 'lib/hooks';
 
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
-const discordStatusName = (status: DiscordStatus): string =>
-	({
-		online: 'Online',
-		dnd: 'Do Not Disturb',
-		idle: 'Idle',
-		offline: 'Offline',
-	}[status]);
+// const discordStatusName = (status: DiscordStatus): string =>
+// 	({
+// 		online: 'Online',
+// 		dnd: 'Do Not Disturb',
+// 		idle: 'Idle',
+// 		offline: 'Offline',
+// 	}[status]);
 
 export const Discord = ({ id }: { id: string }) => {
 	const lanyard = useLanyardWs(id);
@@ -279,13 +280,27 @@ const LastfmTrack = ({ artist, track }: { artist: string; track: string }) => {
 					color: 'rgba(255, 255, 255, 0.4)',
 					fontSize: '12px',
 					marginTop: '2px',
+					display: 'flex',
+					alignItems: 'center',
 				}}
 			>
+				<Music height={12} width={12} style={{ marginRight: '4px' }} />
 				{lastfm.data.track.userplaycount} lifetime plays
 			</ActivityText>
 		);
 	} else {
-		return <></>;
+		return (
+			<ActivityText
+				style={{
+					color: 'rgba(255, 255, 255, 0.4)',
+					fontSize: '12px',
+					marginTop: '2px',
+				}}
+			>
+				<X height={12} width={12} style={{ marginRight: '4px' }} />
+				No Last.fm data available
+			</ActivityText>
+		);
 	}
 };
 
