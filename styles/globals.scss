@@ -98,4 +98,10 @@ span {
 
 .activityLargeImage {
 	border-radius: 4px;
+
+	position: relative;
+}
+
+.activitySmallImage {
+	border-radius: 9999px;
 }

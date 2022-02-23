@@ -1,13 +1,9 @@
-import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 import Image from 'next/image';
 
-import { Activity, LanyardError, Spotify, useLanyardWs } from 'use-lanyard';
+import { Activity, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
-
-import { Container } from 'components/layout';
-import { Bold } from 'components/text';
 
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
@@ -27,6 +23,8 @@ export const Discord = ({ id }: { id: string }) => {
 			<PresenceStatusLine>
 				<PresenceStatusCircle
 					status={lanyard.discord_status as DiscordStatus}
+					mobile={lanyard.active_on_discord_mobile}
+					desktop={lanyard.active_on_discord_desktop}
 				/>
 				<PresenceStatusText>
 					{lanyard.activities.map((activity, i) => (
@@ -112,17 +110,42 @@ const Activity = ({
 					>
 						<div style={{ display: 'flex', flexDirection: 'row' }}>
 							{activity.assets?.large_image ? (
-								<Image
-									src={
-										activity.assets.large_image.startsWith('mp:external')
-											? getExternalAsset(activity.assets.large_image)
-											: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
-									}
-									width={'80px'}
-									height={'80px'}
-									alt={activity.name}
-									className={'activityLargeImage'}
-								/>
+								<div style={{ position: 'relative' }}>
+									<Image
+										src={
+											activity.assets.large_image.startsWith('mp:external')
+												? getExternalAsset(activity.assets.large_image)
+												: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+										}
+										width={'80px'}
+										height={'80px'}
+										alt={activity.name}
+										className={'activityLargeImage'}
+									/>
+									<div
+										style={{
+											position: 'absolute',
+											bottom: '-7.5px',
+											right: '-7.5px',
+											borderRadius: '9999px',
+											border: '4px solid #0d1117',
+											width: '25px',
+											height: '25px',
+										}}
+									>
+										<Image
+											src={
+												activity.assets.small_image.startsWith('mp:external')
+													? getExternalAsset(activity.assets.small_image)
+													: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}`
+											}
+											width={'25px'}
+											height={'25px'}
+											alt={activity.name}
+											className={'activitySmallImage'}
+										/>
+									</div>
+								</div>
 							) : (
 								<></>
 							)}
@@ -285,12 +308,20 @@ const ActivityText = styled.span`
 	text-overflow: ellipsis;
 `;
 
-const PresenceStatusCircle = ({ status }: { status: DiscordStatus }) => {
+const PresenceStatusCircle = ({
+	status,
+	mobile,
+	desktop,
+}: {
+	status: DiscordStatus;
+	mobile: boolean;
+	desktop: boolean;
+}) => {
 	const COLORS = {
 		online: 'rgb(28, 176, 80)',
 		dnd: '#f04747',
 		idle: '#faa81a',
-		offline: '#27292E',
+		offline: 'rgba(255, 255, 255, 0.2)',
 	};
 
 	return (
