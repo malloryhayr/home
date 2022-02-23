@@ -71,6 +71,8 @@ const Activity = ({
 		Code: 'Writing',
 	};
 
+	const NAME_OVERRIDE: { [key: string]: string } = {};
+
 	/**
 	 * Activity Types
 	 *
@@ -96,7 +98,9 @@ const Activity = ({
 						data-for={`activity${activity.id}`}
 						style={{ borderBottom: '1px dotted white' }}
 					>
-						{activity.name}
+						{NAME_OVERRIDE[activity.name]
+							? NAME_OVERRIDE[activity.name]
+							: activity.name}
 					</span>
 					<ReactTooltip
 						id={`activity${activity.id}`}
