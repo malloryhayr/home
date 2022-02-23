@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Activity, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
 
+import { useLastfmTrack } from 'lib/hooks/lastfm';
+
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
 const discordStatusName = (status: DiscordStatus): string =>
@@ -227,6 +229,10 @@ const Activity = ({
 									</span>
 									<ActivityText>by {spotify?.artist}</ActivityText>
 									<ActivityText>on {spotify?.album}</ActivityText>
+									<LastfmTrack
+										artist={spotify?.artist.split('; ')[0] || ''}
+										track={spotify?.song || ''}
+									/>
 								</div>
 							</div>
 							<div
@@ -260,6 +266,26 @@ const Activity = ({
 		default: {
 			return <></>;
 		}
+	}
+};
+
+const LastfmTrack = ({ artist, track }: { artist: string; track: string }) => {
+	const lastfm = useLastfmTrack(artist, track);
+
+	if (lastfm.data?.track) {
+		return (
+			<ActivityText
+				style={{
+					color: 'rgba(255, 255, 255, 0.4)',
+					fontSize: '12px',
+					marginTop: '2px',
+				}}
+			>
+				{lastfm.data.track.userplaycount} lifetime plays
+			</ActivityText>
+		);
+	} else {
+		return <></>;
 	}
 };
 
