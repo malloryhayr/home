@@ -159,11 +159,11 @@ const Activity = ({
 					<span
 						data-tip
 						data-for={`activity${activity.id}`}
-						style={{ borderBottom: '1px dotted white' }}
+						style={{
+							borderBottom: '1px dotted white',
+						}}
 					>
-						{`${spotify?.song} by ${spotify?.artist}`.length > 15
-							? `Spotify`
-							: `${spotify?.song} by ${spotify?.artist}`}
+						Spotify
 					</span>
 					<ReactTooltip
 						id={`activity${activity.id}`}
