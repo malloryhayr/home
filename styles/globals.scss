@@ -92,7 +92,7 @@ span {
 	&.activityTooltip {
 		padding: 18px !important;
 		display: flex !important;
-		width: 300px;
+		min-width: 300px;
 	}
 }
 

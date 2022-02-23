@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Image from 'next/image';
 
-import { Activity, useLanyardWs } from 'use-lanyard';
+import { Activity, LanyardError, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
 
 import { Container } from 'components/layout';
@@ -29,8 +29,14 @@ export const Discord = ({ id }: { id: string }) => {
 					status={lanyard.discord_status as DiscordStatus}
 				/>
 				<PresenceStatusText>
-					{lanyard.activities.map(activity => (
-						<Activity activity={activity} key={activity.id} />
+					{lanyard.activities.map((activity, i) => (
+						<Activity
+							activity={activity}
+							key={activity.id}
+							i={i}
+							length={lanyard.activities.length}
+							spotify={lanyard.spotify}
+						/>
 					))}
 				</PresenceStatusText>
 			</PresenceStatusLine>
@@ -40,7 +46,27 @@ export const Discord = ({ id }: { id: string }) => {
 	}
 };
 
-const Activity = ({ activity }: { activity: Activity }) => {
+const Activity = ({
+	activity,
+	i,
+	length,
+	spotify,
+}: {
+	activity: Activity;
+	i: number;
+	length: number;
+	spotify: Spotify | null;
+}) => {
+	function getFormattedVerb(verb: string) {
+		return i === 0
+			? verb
+			: i < length - 1
+			? `, ${verb.toLowerCase()}`
+			: length === 2
+			? ` and ${verb.toLowerCase()}`
+			: `, and ${verb.toLowerCase()}`;
+	}
+
 	const VERB_OVERRIDE: { [key: string]: string } = {
 		Code: 'Writing',
 	};
@@ -54,7 +80,6 @@ const Activity = ({ activity }: { activity: Activity }) => {
 	 * 3: WATCHING
 	 * 4: CUSTOM
 	 * 5: COMPETING
-	 *
 	 */
 
 	switch (activity.type) {
@@ -65,7 +90,7 @@ const Activity = ({ activity }: { activity: Activity }) => {
 
 			return (
 				<>
-					<span>{ACTIVITY_TEXT} </span>
+					<span>{getFormattedVerb(ACTIVITY_TEXT)} </span>
 					<span
 						data-tip
 						data-for={`activity${activity.id}`}
@@ -81,41 +106,125 @@ const Activity = ({ activity }: { activity: Activity }) => {
 						place="bottom"
 						className={'activityTooltip'}
 					>
-						{activity.assets?.large_image ? (
-							<Image
-								src={
-									activity.assets.large_image.startsWith('mp:external')
-										? getExternalAsset(activity.assets.large_image)
-										: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
-								}
-								width={'80px'}
-								height={'80px'}
-								alt={activity.name}
-								className={'activityLargeImage'}
-							/>
-						) : (
-							<></>
-						)}
+						<div style={{ display: 'flex', flexDirection: 'row' }}>
+							{activity.assets?.large_image ? (
+								<Image
+									src={
+										activity.assets.large_image.startsWith('mp:external')
+											? getExternalAsset(activity.assets.large_image)
+											: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+									}
+									width={'80px'}
+									height={'80px'}
+									alt={activity.name}
+									className={'activityLargeImage'}
+								/>
+							) : (
+								<></>
+							)}
+							<div
+								style={{
+									display: 'flex',
+									flexDirection: 'column',
+									marginLeft: '18px',
+								}}
+							>
+								<span>
+									<strong>{activity.name}</strong>
+								</span>
+								<ActivityText>{activity.details}</ActivityText>
+								<ActivityText>{activity.state}</ActivityText>
+								{activity.timestamps?.start ? (
+									<ActivityText>
+										{formatTimestamp(activity.timestamps.start, Date.now())}{' '}
+										elapsed
+									</ActivityText>
+								) : (
+									<></>
+								)}
+							</div>
+						</div>
+					</ReactTooltip>
+				</>
+			);
+		}
+		case 2: {
+			return (
+				<>
+					<span>{getFormattedVerb('Listening to')} </span>
+					<span
+						data-tip
+						data-for={`activity${activity.id}`}
+						style={{ borderBottom: '1px dotted white' }}
+					>
+						{`${spotify?.song} by ${spotify?.artist}`.length > 15
+							? `Spotify`
+							: `${spotify?.song} by ${spotify?.artist}`}
+					</span>
+					<ReactTooltip
+						id={`activity${activity.id}`}
+						backgroundColor="#0d1117"
+						border
+						borderColor="#27292e"
+						place="bottom"
+						className={'activityTooltip'}
+					>
 						<div
 							style={{
 								display: 'flex',
 								flexDirection: 'column',
-								marginLeft: '18px',
+								width: '100%',
 							}}
 						>
-							<span>
-								<strong>{activity.name}</strong>
-							</span>
-							<ActivityText>{activity.details}</ActivityText>
-							<ActivityText>{activity.state}</ActivityText>
-							{activity.timestamps?.start ? (
-								<ActivityText>
-									{formatTimestamp(activity.timestamps.start, Date.now())}{' '}
-									elapsed
-								</ActivityText>
-							) : (
-								<></>
-							)}
+							<div style={{ display: 'flex', flexDirection: 'row' }}>
+								{activity.assets?.large_image ? (
+									<Image
+										src={spotify?.album_art_url!}
+										width={'80px'}
+										height={'80px'}
+										alt={activity.name}
+										className={'activityLargeImage'}
+									/>
+								) : (
+									<></>
+								)}
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										marginLeft: '18px',
+									}}
+								>
+									<span>
+										<strong>{spotify?.song}</strong>
+									</span>
+									<ActivityText>by {spotify?.artist}</ActivityText>
+									<ActivityText>on {spotify?.album}</ActivityText>
+								</div>
+							</div>
+							<div
+								style={{
+									width: '100%',
+									height: '6px',
+									backgroundColor: '#27292e',
+									borderRadius: '9999px',
+									marginTop: '18px',
+								}}
+							>
+								<div
+									style={{
+										width: `${
+											((Date.now() - spotify?.timestamps.start!) /
+												(spotify?.timestamps.end! -
+													spotify?.timestamps.start!)) *
+											100
+										}%`,
+										height: '100%',
+										backgroundColor: 'white',
+										borderRadius: '9999px',
+									}}
+								></div>
+							</div>
 						</div>
 					</ReactTooltip>
 				</>
