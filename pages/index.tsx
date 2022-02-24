@@ -33,12 +33,12 @@ export default function Home(props: Props) {
 		},
 	];
 
-	const [isBirthday, setIsBirthday] = useState(isDate('2005-03-13'));
+	const [isBirthday, setIsBirthday] = useState(isDate(BIRTHDAY));
 
 	const [intervalCheck, setIntervalCheck] = useState(0);
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setIsBirthday(isDate('2005-03-13'));
+			setIsBirthday(isDate(BIRTHDAY));
 
 			setIntervalCheck(intervalCheck + 1);
 		}, 100);

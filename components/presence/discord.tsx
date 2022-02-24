@@ -7,6 +7,11 @@ import ReactTooltip from 'react-tooltip';
 import { Music, Smartphone, X } from 'react-feather';
 
 import { useLastfmTrack, useWindowDimensions } from 'lib/hooks';
+import {
+	DISCORD_ACTIVITY_NAME_OVERRIDE,
+	DISCORD_ACTIVITY_VERB_OVERRIDE,
+	TRANSPARENT_IMAGE,
+} from 'lib/constants';
 
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
@@ -82,15 +87,6 @@ const Activity = ({
 			: `, and ${verb.toLowerCase()}`;
 	}
 
-	const VERB_OVERRIDE: { [key: string]: string } = {
-		Code: 'Writing',
-	};
-
-	const NAME_OVERRIDE: { [key: string]: string } = {};
-
-	const TRANSPARENT_IMAGE =
-		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
 	/**
 	 * Activity Types
 	 *
@@ -104,8 +100,8 @@ const Activity = ({
 
 	switch (activity.type) {
 		case 0: {
-			const ACTIVITY_TEXT = VERB_OVERRIDE[activity.name]
-				? VERB_OVERRIDE[activity.name]
+			const ACTIVITY_TEXT = DISCORD_ACTIVITY_VERB_OVERRIDE[activity.name]
+				? DISCORD_ACTIVITY_VERB_OVERRIDE[activity.name]
 				: 'Playing';
 
 			return (
@@ -116,8 +112,8 @@ const Activity = ({
 						data-for={`activity${activity.id}`}
 						style={{ borderBottom: '1px dotted white' }}
 					>
-						{NAME_OVERRIDE[activity.name]
-							? NAME_OVERRIDE[activity.name]
+						{DISCORD_ACTIVITY_NAME_OVERRIDE[activity.name]
+							? DISCORD_ACTIVITY_NAME_OVERRIDE[activity.name]
 							: activity.name}
 					</span>
 					<ReactTooltip

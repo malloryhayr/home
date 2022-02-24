@@ -4,6 +4,10 @@ export const DISCORD_ID = '182292736790102017';
 
 export const GITHUB_USERNAME = 'iGalaxyYT';
 
+export const LASTFM_USERNAME = 'iGalaxyYT';
+
+export const WAKATIME_USERNAME = 'iGalaxyYT';
+
 export enum TIMESPAN {
 	SECOND = 1e3,
 	MINUTE = 60e3,
@@ -13,3 +17,12 @@ export enum TIMESPAN {
 	MONTH = 2629743e3,
 	YEAR = 31556926e3,
 }
+
+export const TRANSPARENT_IMAGE =
+	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
+export const DISCORD_ACTIVITY_VERB_OVERRIDE: { [key: string]: string } = {
+	Code: 'Writing',
+};
+
+export const DISCORD_ACTIVITY_NAME_OVERRIDE: { [key: string]: string } = {};
