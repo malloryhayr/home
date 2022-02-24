@@ -6,7 +6,7 @@ export const GITHUB_USERNAME = 'iGalaxyYT';
 
 export const LASTFM_USERNAME = 'iGalaxyYT';
 
-export const WAKATIME_USERNAME = 'iGalaxyYT';
+export const WAKATIME_USERNAME = 'iGalaxy';
 
 export enum TIMESPAN {
 	SECOND = 1e3,
