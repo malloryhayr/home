@@ -251,7 +251,9 @@ const Activity = ({
 									<span>
 										<strong>{spotify?.song}</strong>
 									</span>
-									<ActivityText>by {spotify?.artist}</ActivityText>
+									<ActivityText>
+										by {spotify?.artist.replaceAll(';', ',')}
+									</ActivityText>
 									<ActivityText>on {spotify?.album}</ActivityText>
 									<LastfmTrack
 										artist={spotify?.artist.split('; ')[0] || ''}
