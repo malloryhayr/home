@@ -282,6 +282,38 @@ const Activity = ({
 									}}
 								></div>
 							</div>
+							<div
+								style={{
+									display: 'flex',
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+								}}
+							>
+								<span
+									style={{
+										color: 'rgba(255, 255, 255, 0.4)',
+										fontSize: '12px',
+										marginTop: '10px',
+									}}
+								>
+									{formatTimestamp(
+										spotify?.timestamps.start || Date.now(),
+										Date.now()
+									)}
+								</span>
+								<span
+									style={{
+										color: 'rgba(255, 255, 255, 0.4)',
+										fontSize: '12px',
+										marginTop: '10px',
+									}}
+								>
+									{formatTimestamp(
+										spotify?.timestamps.start || Date.now(),
+										spotify?.timestamps.end || Date.now()
+									)}
+								</span>
+							</div>
 						</div>
 					</ReactTooltip>
 				</>
