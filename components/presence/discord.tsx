@@ -49,7 +49,15 @@ export const Discord = ({ id }: { id: string }) => {
 			</PresenceStatusLine>
 		);
 	} else {
-		return <></>;
+		return (
+			<PresenceStatusLine>
+				<PresenceStatusCircle
+					status={'offline'}
+					mobile={false}
+					desktop={false}
+				/>
+			</PresenceStatusLine>
+		);
 	}
 };
 
