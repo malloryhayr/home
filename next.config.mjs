@@ -25,6 +25,9 @@ const config = {
 
 		return config;
 	},
+	images: {
+		domains: ['cdn.discordapp.com', 'i.scdn.co', 'raw.githubusercontent.com'],
+	},
 };
 
 export default config;
