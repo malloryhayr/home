@@ -1,6 +1,6 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
 import dayjs from 'dayjs';
@@ -9,7 +9,7 @@ import { DiscordPresence } from 'components/presence';
 import { GitHubSection, ToolsSection } from 'components/section';
 import { Header, Paragraph, SubHeader } from 'components/text';
 
-import { BIRTHDAY, DISCORD_ID, GITHUB_USERNAME } from 'lib/constants';
+import { BIRTHDAY, GITHUB_USERNAME } from 'lib/constants';
 import { isDate } from 'lib/time';
 import { GitHubPinnedRepo, useGitHubPinnedRepos } from 'lib/hooks';
 
@@ -51,7 +51,14 @@ export default function Home(props: Props) {
 
 	return (
 		<div>
-			<div style={{ marginBottom: '18px' }}>
+			<div
+				style={{
+					marginBottom: '18px',
+					display: 'flex',
+					flexDirection: 'row',
+					alignItems: 'center',
+				}}
+			>
 				{socials.map((social, i) => (
 					<Link href={social.link} passHref key={`social${i}`}>
 						<a target="_blank" style={{ paddingRight: '10px' }}>
@@ -59,6 +66,7 @@ export default function Home(props: Props) {
 						</a>
 					</Link>
 				))}
+				<DiscordPresence id={'182292736790102017'} />
 			</div>
 			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
 			<Paragraph style={{ marginTop: '18px' }}>
