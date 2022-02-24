@@ -4,6 +4,14 @@ import Image from 'next/image';
 
 import { Activity, Spotify, useLanyardWs } from 'use-lanyard';
 import ReactTooltip from 'react-tooltip';
+import { Music, Smartphone, X } from 'react-feather';
+
+import { useLastfmTrack, useWindowDimensions } from 'lib/hooks';
+import {
+	DISCORD_ACTIVITY_NAME_OVERRIDE,
+	DISCORD_ACTIVITY_VERB_OVERRIDE,
+	TRANSPARENT_IMAGE,
+} from 'lib/constants';
 
 type DiscordStatus = 'online' | 'dnd' | 'idle' | 'offline';
 
@@ -18,6 +26,8 @@ const discordStatusName = (status: DiscordStatus): string =>
 export const Discord = ({ id }: { id: string }) => {
 	const lanyard = useLanyardWs(id);
 
+	const { width, height } = useWindowDimensions();
+
 	if (lanyard) {
 		return (
 			<PresenceStatusLine>
@@ -27,20 +37,32 @@ export const Discord = ({ id }: { id: string }) => {
 					desktop={lanyard.active_on_discord_desktop}
 				/>
 				<PresenceStatusText>
-					{lanyard.activities.map((activity, i) => (
-						<Activity
-							activity={activity}
-							key={activity.id}
-							i={i}
-							length={lanyard.activities.length}
-							spotify={lanyard.spotify}
-						/>
-					))}
+					{width > 930 ? (
+						lanyard.activities.map((activity, i) => (
+							<Activity
+								activity={activity}
+								key={activity.id}
+								i={i}
+								length={lanyard.activities.length}
+								spotify={lanyard.spotify}
+							/>
+						))
+					) : (
+						<></>
+					)}
 				</PresenceStatusText>
 			</PresenceStatusLine>
 		);
 	} else {
-		return <></>;
+		return (
+			<PresenceStatusLine>
+				<PresenceStatusCircle
+					status={'offline'}
+					mobile={false}
+					desktop={false}
+				/>
+			</PresenceStatusLine>
+		);
 	}
 };
 
@@ -65,12 +87,6 @@ const Activity = ({
 			: `, and ${verb.toLowerCase()}`;
 	}
 
-	const VERB_OVERRIDE: { [key: string]: string } = {
-		Code: 'Writing',
-	};
-
-	const NAME_OVERRIDE: { [key: string]: string } = {};
-
 	/**
 	 * Activity Types
 	 *
@@ -84,8 +100,8 @@ const Activity = ({
 
 	switch (activity.type) {
 		case 0: {
-			const ACTIVITY_TEXT = VERB_OVERRIDE[activity.name]
-				? VERB_OVERRIDE[activity.name]
+			const ACTIVITY_TEXT = DISCORD_ACTIVITY_VERB_OVERRIDE[activity.name]
+				? DISCORD_ACTIVITY_VERB_OVERRIDE[activity.name]
 				: 'Playing';
 
 			return (
@@ -96,8 +112,8 @@ const Activity = ({
 						data-for={`activity${activity.id}`}
 						style={{ borderBottom: '1px dotted white' }}
 					>
-						{NAME_OVERRIDE[activity.name]
-							? NAME_OVERRIDE[activity.name]
+						{DISCORD_ACTIVITY_NAME_OVERRIDE[activity.name]
+							? DISCORD_ACTIVITY_NAME_OVERRIDE[activity.name]
 							: activity.name}
 					</span>
 					<ReactTooltip
@@ -113,38 +129,44 @@ const Activity = ({
 								<div style={{ position: 'relative' }}>
 									<Image
 										src={
-											activity.assets.large_image.startsWith('mp:external')
-												? getExternalAsset(activity.assets.large_image)
-												: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+											activity.assets.large_image
+												? activity.assets.large_image.startsWith('mp:external')
+													? getExternalAsset(activity.assets.large_image)
+													: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`
+												: TRANSPARENT_IMAGE
 										}
 										width={'80px'}
 										height={'80px'}
 										alt={activity.name}
 										className={'activityLargeImage'}
 									/>
-									<div
-										style={{
-											position: 'absolute',
-											bottom: '-7.5px',
-											right: '-7.5px',
-											borderRadius: '9999px',
-											border: '4px solid #0d1117',
-											width: '25px',
-											height: '25px',
-										}}
-									>
-										<Image
-											src={
-												activity.assets.small_image.startsWith('mp:external')
-													? getExternalAsset(activity.assets.small_image)
-													: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}`
-											}
-											width={'25px'}
-											height={'25px'}
-											alt={activity.name}
-											className={'activitySmallImage'}
-										/>
-									</div>
+									{activity.assets.small_image ? (
+										<div
+											style={{
+												position: 'absolute',
+												bottom: '-7.5px',
+												right: '-7.5px',
+												borderRadius: '9999px',
+												border: '4px solid #0d1117',
+												width: '25px',
+												height: '25px',
+											}}
+										>
+											<Image
+												src={
+													activity.assets.small_image.startsWith('mp:external')
+														? getExternalAsset(activity.assets.small_image)
+														: `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}`
+												}
+												width={'25px'}
+												height={'25px'}
+												alt={activity.name}
+												className={'activitySmallImage'}
+											/>
+										</div>
+									) : (
+										<></>
+									)}
 								</div>
 							) : (
 								<></>
@@ -225,8 +247,14 @@ const Activity = ({
 									<span>
 										<strong>{spotify?.song}</strong>
 									</span>
-									<ActivityText>by {spotify?.artist}</ActivityText>
+									<ActivityText>
+										by {spotify?.artist.replaceAll(';', ',')}
+									</ActivityText>
 									<ActivityText>on {spotify?.album}</ActivityText>
+									<LastfmTrack
+										artist={spotify?.artist.split('; ')[0] || ''}
+										track={spotify?.song || ''}
+									/>
 								</div>
 							</div>
 							<div
@@ -252,6 +280,38 @@ const Activity = ({
 									}}
 								></div>
 							</div>
+							<div
+								style={{
+									display: 'flex',
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+								}}
+							>
+								<span
+									style={{
+										color: 'rgba(255, 255, 255, 0.4)',
+										fontSize: '12px',
+										marginTop: '10px',
+									}}
+								>
+									{formatTimestamp(
+										spotify?.timestamps.start || Date.now(),
+										Date.now()
+									)}
+								</span>
+								<span
+									style={{
+										color: 'rgba(255, 255, 255, 0.4)',
+										fontSize: '12px',
+										marginTop: '10px',
+									}}
+								>
+									{formatTimestamp(
+										spotify?.timestamps.start || Date.now(),
+										spotify?.timestamps.end || Date.now()
+									)}
+								</span>
+							</div>
 						</div>
 					</ReactTooltip>
 				</>
@@ -260,6 +320,40 @@ const Activity = ({
 		default: {
 			return <></>;
 		}
+	}
+};
+
+const LastfmTrack = ({ artist, track }: { artist: string; track: string }) => {
+	const lastfm = useLastfmTrack(artist, track);
+
+	if (lastfm.data?.track) {
+		return (
+			<ActivityText
+				style={{
+					color: 'rgba(255, 255, 255, 0.4)',
+					fontSize: '12px',
+					marginTop: '2px',
+					display: 'flex',
+					alignItems: 'center',
+				}}
+			>
+				<Music height={12} width={12} style={{ marginRight: '4px' }} />
+				{lastfm.data.track.userplaycount} lifetime plays
+			</ActivityText>
+		);
+	} else {
+		return (
+			<ActivityText
+				style={{
+					color: 'rgba(255, 255, 255, 0.4)',
+					fontSize: '12px',
+					marginTop: '2px',
+				}}
+			>
+				<X height={12} width={12} style={{ marginRight: '4px' }} />
+				No Last.fm data available
+			</ActivityText>
+		);
 	}
 };
 
@@ -324,15 +418,26 @@ const PresenceStatusCircle = ({
 		offline: 'rgba(255, 255, 255, 0.2)',
 	};
 
-	return (
-		<div
-			style={{
-				width: '16px',
-				height: '16px',
-				borderRadius: '100%',
-				backgroundColor: COLORS[status],
-				marginRight: '16px',
-			}}
-		/>
-	);
+	if (mobile && !desktop) {
+		return (
+			<Smartphone
+				width={24}
+				height={24}
+				color={COLORS[status]}
+				style={{ marginRight: '16px' }}
+			/>
+		);
+	} else {
+		return (
+			<div
+				style={{
+					width: '16px',
+					height: '16px',
+					borderRadius: '100%',
+					backgroundColor: COLORS[status],
+					marginRight: '16px',
+				}}
+			/>
+		);
+	}
 };

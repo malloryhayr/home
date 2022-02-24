@@ -17,12 +17,18 @@ import {
 	Vercel,
 	Yarn,
 } from '@icons-pack/react-simple-icons';
-import { useWakaTimeStats, WakaTimeLanguage } from 'lib/hooks';
-import { useLanguageFromWakaTimeStats } from 'lib/hooks/wakatime';
+
+import { WAKATIME_USERNAME } from 'lib/constants';
+import {
+	useWakaTimeStats,
+	WakaTimeLanguage,
+	useLanguageFromWakaTimeStats,
+} from 'lib/hooks';
+
 import ReactTooltip from 'react-tooltip';
 
 export const Tools = () => {
-	const { data: wakatime, error } = useWakaTimeStats('iGalaxy');
+	const { data: wakatime } = useWakaTimeStats(WAKATIME_USERNAME);
 
 	return (
 		<div

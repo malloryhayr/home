@@ -1,6 +1,6 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
 import dayjs from 'dayjs';
@@ -9,10 +9,9 @@ import { DiscordPresence } from 'components/presence';
 import { GitHubSection, ToolsSection } from 'components/section';
 import { Header, Paragraph, SubHeader } from 'components/text';
 
-import { BIRTHDAY, DISCORD_ID, GITHUB_USERNAME } from 'lib/constants';
+import { BIRTHDAY, GITHUB_USERNAME } from 'lib/constants';
 import { isDate } from 'lib/time';
 import { GitHubPinnedRepo, useGitHubPinnedRepos } from 'lib/hooks';
-import { Discord } from 'components/presence/discord';
 
 interface Props {
 	pinnedRepos: (GitHubPinnedRepo & { url: string })[];
@@ -34,12 +33,12 @@ export default function Home(props: Props) {
 		},
 	];
 
-	const [isBirthday, setIsBirthday] = useState(isDate('2005-03-13'));
+	const [isBirthday, setIsBirthday] = useState(isDate(BIRTHDAY));
 
 	const [intervalCheck, setIntervalCheck] = useState(0);
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setIsBirthday(isDate('2005-03-13'));
+			setIsBirthday(isDate(BIRTHDAY));
 
 			setIntervalCheck(intervalCheck + 1);
 		}, 100);
@@ -67,7 +66,7 @@ export default function Home(props: Props) {
 						</a>
 					</Link>
 				))}
-				<Discord id={'182292736790102017'} />
+				<DiscordPresence id={'182292736790102017'} />
 			</div>
 			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
 			<Paragraph style={{ marginTop: '18px' }}>
