@@ -1,13 +1,13 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import Link, { LinkProps } from 'next/link';
+import Link from 'next/link';
 import { MDXProvider } from '@mdx-js/react';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
+import { ArrowLeft, Home } from 'react-feather';
 import { BlogPostFile, getPostPaths } from 'lib/blog';
 import styled from 'styled-components';
-import { ReactNode } from 'react';
 
 export default function Post({
 	year,
@@ -19,6 +19,14 @@ export default function Post({
 
 	return (
 		<MDXProvider components={{}}>
+			<Link href="/" passHref>
+				<a>
+					<BlogPostHomeLink>
+						<ArrowLeft width={18} height={18} style={{ marginRight: '8px' }} />
+						Back
+					</BlogPostHomeLink>
+				</a>
+			</Link>
 			<BlogDate rawDate={meta.date} />
 			<h1
 				style={{
@@ -73,3 +81,16 @@ const BlogDate = ({ rawDate }: { rawDate: string }) => {
 		</span>
 	);
 };
+
+const BlogPostHomeLink = styled.span`
+	display: flex;
+	align-items: center;
+	margin-bottom: 18px;
+	color: #86878a;
+
+	transition: color 0.125s;
+
+	&:hover {
+		color: magenta;
+	}
+`;
