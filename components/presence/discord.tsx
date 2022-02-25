@@ -10,6 +10,7 @@ import { useLastfmTrack, useWindowDimensions } from 'lib/hooks';
 import {
 	DISCORD_ACTIVITY_NAME_OVERRIDE,
 	DISCORD_ACTIVITY_VERB_OVERRIDE,
+	TIMESPAN,
 	TRANSPARENT_IMAGE,
 } from 'lib/constants';
 
@@ -363,9 +364,9 @@ function getExternalAsset(link: string) {
 
 function formatTimestamp(start: number, end: number) {
 	const diff = end - start;
-	const hours = Math.floor(diff / 3600e3);
-	const min = Math.floor(diff / 60e3 - hours * 60);
-	const sec = Math.floor(diff / 1e3 - min * 60 - hours * 3600);
+	const hours = Math.floor(diff / TIMESPAN.HOUR);
+	const min = Math.floor(diff / TIMESPAN.MINUTE - hours * 60);
+	const sec = Math.floor(diff / TIMESPAN.SECOND - min * 60 - hours * 3600);
 
 	const hoursFormatted = hours.toLocaleString('en-US', {
 		minimumIntegerDigits: 2,
