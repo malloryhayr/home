@@ -2,7 +2,6 @@ import {
 	Cloudflare,
 	Git,
 	Go,
-	Gradle,
 	Icon,
 	Java,
 	Kotlin,
@@ -13,6 +12,7 @@ import {
 	Redis,
 	Styledcomponents,
 	Supabase,
+	Svelte,
 	Typescript,
 	Vercel,
 	Yarn,
@@ -78,9 +78,16 @@ export const Tools = () => {
 			<ToolListItem Logo={ReactJs} text={'React.js'} />
 			<ToolListItem Logo={Nextdotjs} text={'Next.js'} />
 			<ToolListItem Logo={Styledcomponents} text={'styled-components'} />
+			<ToolListItem
+				Logo={Svelte}
+				text={'Svelte'}
+				lang={useLanguageFromWakaTimeStats(
+					wakatime || { data: { languages: [] } },
+					'Svelte'
+				)}
+			/>
 			<ToolListItem Logo={Nodedotjs} text={'Node.js'} />
 			<ToolListItem Logo={Yarn} text={'Yarn'} />
-			<ToolListItem Logo={Gradle} text={'Gradle'} />
 			<ToolListItem Logo={Git} text={'Git'} />
 		</div>
 	);
