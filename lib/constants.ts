@@ -23,7 +23,7 @@ export const TRANSPARENT_IMAGE =
 
 export const DISCORD_ACTIVITY_VERB_OVERRIDE: { [key: string]: string } = {
 	Code: 'Writing',
-	'IntelliJ Idea Ultimate': 'Using',
+	'IntelliJ IDEA Ultimate': 'Using',
 };
 
 export const DISCORD_ACTIVITY_NAME_OVERRIDE: { [key: string]: string } = {};
