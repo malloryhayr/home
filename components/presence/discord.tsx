@@ -331,7 +331,7 @@ const LastfmTrack = ({ artist, track }: { artist: string; track: string }) => {
 		return (
 			<ActivityText
 				style={{
-					color: 'rgba(255, 255, 255, 0.4)',
+					color: '#6e7074',
 					fontSize: '12px',
 					marginTop: '2px',
 					display: 'flex',
