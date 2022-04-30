@@ -11,6 +11,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<>
 			<Head>
 				<title>William Hayr</title>
+				<a
+					rel="me"
+					href="https://mastodon.lol/@igalaxy"
+					style={{
+						display: 'none',
+					}}
+				/>
 			</Head>
 			<PageContainer>
 				<PageContent>
