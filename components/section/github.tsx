@@ -64,7 +64,15 @@ const GitHubRepoCard = ({
 						alignItems: 'center',
 					}}
 				>
-					<Bold style={{ marginRight: '12px' }}>
+					<Bold
+						style={{
+							marginRight: '12px',
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+							maxWidth: '70%',
+						}}
+					>
 						<span style={{ marginRight: '8px' }}>{emoji}</span>
 						{repo?.repo}
 					</Bold>
