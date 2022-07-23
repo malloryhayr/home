@@ -251,12 +251,9 @@ const Activity = ({
 									<ActivityText>
 										by {spotify?.artist.replaceAll(';', ',')}
 									</ActivityText>
-									<ActivityText>
-										on{' '}
-										{spotify?.album &&
-											// @ts-ignore
-											spotify?.album.large_text}
-									</ActivityText>
+									{spotify?.album && typeof spotify.album === 'string' && (
+										<ActivityText>on {spotify.album}</ActivityText>
+									)}
 									<LastfmTrack
 										artist={spotify?.artist.split('; ')[0] || ''}
 										track={spotify?.song || ''}
