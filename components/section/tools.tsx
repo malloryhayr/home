@@ -16,7 +16,6 @@ import {
 	Svelte,
 	Typescript,
 	Vercel,
-	Yarn,
 } from '@icons-pack/react-simple-icons';
 
 import { WAKATIME_USERNAME } from 'lib/constants';
