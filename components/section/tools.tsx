@@ -1,5 +1,6 @@
 import {
 	Cloudflare,
+	Deno,
 	Git,
 	Go,
 	Icon,
@@ -87,7 +88,7 @@ export const Tools = () => {
 				)}
 			/>
 			<ToolListItem Logo={Nodedotjs} text={'Node.js'} />
-			<ToolListItem Logo={Yarn} text={'Yarn'} />
+			<ToolListItem Logo={Deno} text={'Deno'} />
 			<ToolListItem Logo={Git} text={'Git'} />
 		</div>
 	);
