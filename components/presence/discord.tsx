@@ -39,15 +39,17 @@ export const Discord = ({ id }: { id: string }) => {
 				/>
 				<PresenceStatusText>
 					{width > 930 ? (
-						lanyard.activities.map((activity, i) => (
-							<Activity
-								activity={activity}
-								key={activity.id}
-								i={i}
-								length={lanyard.activities.length}
-								spotify={lanyard.spotify}
-							/>
-						))
+						lanyard.activities
+							.filter(x => x.type !== 4)
+							.map((activity, i) => (
+								<Activity
+									activity={activity}
+									key={activity.id}
+									i={i}
+									length={lanyard.activities.filter(x => x.type !== 4).length}
+									spotify={lanyard.spotify}
+								/>
+							))
 					) : (
 						<></>
 					)}
