@@ -30,12 +30,16 @@ export const Discord = ({ id }: { id: string }) => {
 	const { width, height } = useWindowDimensions();
 
 	if (lanyard) {
+		const custom = lanyard.activities.find(x => x.type === 4);
+
 		return (
 			<PresenceStatusLine>
 				<PresenceStatusCircle
 					status={lanyard.discord_status as DiscordStatus}
 					mobile={lanyard.active_on_discord_mobile}
 					desktop={lanyard.active_on_discord_desktop}
+					customEmoji={custom?.emoji?.name}
+					customText={custom?.state}
 				/>
 				<PresenceStatusText>
 					{width > 930 ? (
@@ -411,10 +415,14 @@ const PresenceStatusCircle = ({
 	status,
 	mobile,
 	desktop,
+	customEmoji,
+	customText,
 }: {
 	status: DiscordStatus;
 	mobile: boolean;
 	desktop: boolean;
+	customEmoji?: string;
+	customText?: string;
 }) => {
 	const COLORS = {
 		online: 'rgb(28, 176, 80)',
@@ -433,16 +441,62 @@ const PresenceStatusCircle = ({
 			/>
 		);
 	} else {
-		return (
-			<div
-				style={{
-					width: '16px',
-					height: '16px',
-					borderRadius: '100%',
-					backgroundColor: COLORS[status],
-					marginRight: '16px',
-				}}
-			/>
-		);
+		if (customEmoji) {
+			return (
+				<div
+					style={{
+						width: '24px',
+						height: '24px',
+						borderRadius: '100%',
+						marginRight: '20px',
+						marginTop: '-4px',
+
+						display: 'flex',
+						alignItems: 'center',
+					}}
+				>
+					<span
+						style={{
+							fontSize: '24px',
+						}}
+						data-tip
+						data-for={`custom${customEmoji}`}
+					>
+						{customEmoji}
+					</span>
+					{customText ? (
+						<ReactTooltip
+							id={`custom${customEmoji}`}
+							backgroundColor="#0d1117"
+							border
+							borderColor="#27292e"
+							place="bottom"
+						>
+							<span
+								style={{
+									fontFamily: 'Roboto',
+								}}
+							>
+								{customText}
+							</span>
+						</ReactTooltip>
+					) : (
+						<></>
+					)}
+				</div>
+			);
+		} else {
+			return (
+				<div
+					style={{
+						width: '16px',
+						height: '16px',
+						borderRadius: '100%',
+						backgroundColor: COLORS[status],
+						marginRight: '16px',
+					}}
+				/>
+			);
+		}
 	}
 };
