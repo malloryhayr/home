@@ -71,7 +71,7 @@ export default function Home(props: Props) {
 			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
 			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m a <Age birthdate={BIRTHDAY} />
-				-year-old aspiring software engineer & amateur game designer.
+				-year-old aspiring software engineer & Minecraft enthusiast.
 			</Paragraph>
 			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m pursuing full-stack web development using modern technologies
