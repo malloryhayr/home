@@ -51,7 +51,7 @@ export interface GitHubPinnedRepo {
 
 export function useGitHubPinnedRepos(username: string) {
 	const res = useSWR<GitHubPinnedRepo[], Error>(
-		`https://gh-pinned-repos.egoist.sh/?username=${username}`,
+		`https://gh-pinned-repos.egoist.dev/?username=${username}`,
 		url => fetch(url).then(res => res.json())
 	);
 

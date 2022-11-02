@@ -124,7 +124,7 @@ const Age = ({ birthdate }: { birthdate: string }) => {
 
 export const getStaticProps: GetStaticProps<Props> = async function () {
 	const pinnedRepos = await fetch(
-		`https://gh-pinned-repos.egoist.sh/?username=${GITHUB_USERNAME}`
+		`https://gh-pinned-repos.egoist.dev/?username=${GITHUB_USERNAME}`
 	).then(async response => response.json() as Promise<GitHubPinnedRepo[]>);
 
 	return {
