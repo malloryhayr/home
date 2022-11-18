@@ -38,7 +38,7 @@ export default class MyDocument extends Document {
 	}
 
 	render() {
-		const description = `William Hayr — ${Math.floor(
+		const description = `Mallory Hayr — ${Math.floor(
 			dayjs().diff(BIRTHDAY, 'year', true)
 		)}-year-old aspiring software engineer & amateur game designer`;
 
@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
 						rel="stylesheet"
 					/>
 
-					<meta property="og:title" content="William Hayr" />
+					<meta property="og:title" content="iGalaxy" />
 					<meta property="og:type" content="website" />
 					<meta property="og:url" content="https://igalaxy.dev" />
 					<meta property="twitter:url" content="https://igalaxy.dev" />
@@ -62,9 +62,9 @@ export default class MyDocument extends Document {
 					<meta property="twitter:description" content={description} />
 					<meta
 						name="keywords"
-						content="iGalaxy, William, William Hayr, software engineer, game designer"
+						content="iGalaxy, Mallory, Mallory Hayr, software engineer, game designer"
 					/>
-					<meta name="author" content="William Hayr" />
+					<meta name="author" content="Mallory Hayr" />
 
 					<meta name="theme-color" content="#010409" />
 

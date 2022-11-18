@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>William Hayr</title>
+				<title>iGalaxy</title>
 				<a
 					rel="me"
 					href="https://mastodon.lol/@igalaxy"
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<Component {...pageProps} />
 				</PageContent>
 				<Footer>
-					<SubHeader style={{ marginBottom: '4px' }}>William Hayr</SubHeader>
+					<SubHeader style={{ marginBottom: '4px' }}>Mallory Hayr</SubHeader>
 					<p>© {new Date().getFullYear()}</p>
 					<br />
 					<p

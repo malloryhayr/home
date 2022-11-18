@@ -2,7 +2,8 @@ import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { GitHub, Key, MessageSquare, Twitter } from 'react-feather';
+import { GitHub, Key, Twitter } from 'react-feather';
+import { Mastodon, Tumblr } from '@icons-pack/react-simple-icons';
 import dayjs from 'dayjs';
 
 import { DiscordPresence } from 'components/presence';
@@ -26,6 +27,10 @@ export default function Home(props: Props) {
 		{
 			link: 'https://twitter.com/_iGalaxyYT',
 			icon: Twitter,
+		},
+		{
+			link: 'https://mastodon.lol/@igalaxy',
+			icon: Mastodon,
 		},
 		{
 			link: 'https://keybase.io/igalaxy',
@@ -68,7 +73,7 @@ export default function Home(props: Props) {
 				))}
 				<DiscordPresence id={'182292736790102017'} />
 			</div>
-			<Header>Hey, I&lsquo;m William {isBirthday ? '🥳' : '👋'}</Header>
+			<Header>Hey, I&lsquo;m iGalaxy {isBirthday ? '🥳' : '👋'}</Header>
 			<Paragraph style={{ marginTop: '18px' }}>
 				I&lsquo;m a <Age birthdate={BIRTHDAY} />
 				-year-old aspiring software engineer & Minecraft enthusiast.
